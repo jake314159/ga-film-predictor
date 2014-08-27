@@ -27,9 +27,9 @@ for var in "$@"
 do
     if [[ $var =~ $pat ]]; then 
         ID=$(echo "$var" | grep -o "tt[0-9][0-9]*")
-        python3 src/film_predictor.py evalScores_best.evs $ID
+        python3 src/predictor.py evalScores_best.evs $ID
     else
-        python3 src/film_predictor.py evalScores_best.evs $var
+        python3 src/predictor.py evalScores_best.evs $var
     fi
 done
 
