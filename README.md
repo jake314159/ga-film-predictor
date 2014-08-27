@@ -18,7 +18,7 @@ The evolve.py file was used with this data set to create an evs file which could
 | predict.py on training data           | **96%**  |
 | predict.py on test data               | **88%**  |
 
-As shown above the accuracy of the program is around *85%* when using data points which were not included in the training data set. A breakdown of the outcome from the test data is shown below. The total is weighted to take into account how common each correct response is.
+As shown above the accuracy of the program is around *88%* when using data points which were not included in the training data set. A breakdown of the outcome from the test data is shown below. The total is weighted to take into account how common each correct response is.
 
 | Expected | Sample size | Correct | Incorrect  |
 |:---------|:------------|:-------:|:----------:|
