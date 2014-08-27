@@ -57,7 +57,7 @@ python3 evolve.py film_data_store.fds eval_scores.evs
 
 Once you have created an evs file you are then ready to make some predictions! Predictions are made using IMDB ID's. Once you have an ID for a film you can make a prediction on whether you will like it with the command below. The eval_scores.evs is the file you created in part 1.  
 ```
-python3 film_predictor.py eval_scores.evs tt0076759
+python3 predictor.py eval_scores.evs tt0076759
 ```  
 
 
