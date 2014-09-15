@@ -76,16 +76,18 @@ print(len(score_list))
 for i in range(len(score_list)):
     score_list[i] = EvalScores()
     score_list[i].randomize()
-    # Add film genre data
-    for entry in store.entries:
-        for genre in entry.film.genre:
-            score_list[i].add_genre_data(genre.replace(" ", ""), entry.score)
-        for actor in entry.film.actor:
-            score_list[i].add_actor_data(actor.strip(), entry.score)
-        for director in entry.film.director:
-            score_list[i].add_director_data(director.strip(), entry.score)
-        for writer in entry.film.writer:
-            score_list[i].add_writer_data(writer.strip(), entry.score)
+
+# Add film genre/actor/director/writter data
+# Note this only needs to be done once as every EvalScore shares the same dict
+for entry in store.entries:
+    for genre in entry.film.genre:
+        score_list[i].add_genre_data(genre.replace(" ", ""), entry.score)
+    for actor in entry.film.actor:
+        score_list[i].add_actor_data(actor.strip(), entry.score)
+    for director in entry.film.director:
+        score_list[i].add_director_data(director.strip(), entry.score)
+    for writer in entry.film.writer:
+        score_list[i].add_writer_data(writer.strip(), entry.score)
 
 prc_list = create_processed_list( score_list )
 print("Best score... " + str( prc_list[0].rating ))
