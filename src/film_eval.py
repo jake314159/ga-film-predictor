@@ -21,6 +21,7 @@
 
 from film_data import *
 import random
+import sys
 
 mutation_rate = 0.2
 number_of_parts = 10
@@ -145,40 +146,80 @@ class EvalScores:
                 self.vals[i] = otherScores.vals[i]
         return self
 
-def eval_film( film, evalScores ):
+def print_explain(type_, thing_, good_bad):
+    type_ = type_.strip()
+    thing_ = thing_.strip()
+    sys.stdout.write(type_)
+    for i in range(10-len(type_)):
+        sys.stdout.write(" ")
+    sys.stdout.write(thing_)
+    for i in range(28-len(thing_)):
+        sys.stdout.write(" ")
+
+    if good_bad:
+        print("GOOD")
+    else:
+        print("BAD")
+
+def eval_film( film, evalScores, explain=False ):
     value = 0.0
 
     i=0
     for genre in film.genre:
-        value += evalScores.get_genre_score( genre )*evalScores.vals[i]
+        v = evalScores.get_genre_score( genre )*evalScores.vals[i]
+        value += v
+        if explain:
+            print_explain("Genre", genre, v > 0)
+
         if i<2:
             i += 1
 
     count = 0
     total = 0
     for actor in film.actor:
-        total += evalScores.get_actor_score(actor)
+        v = evalScores.get_actor_score(actor)
+        total += v
         count += 1
+        if explain:
+            print_explain("Actor", actor, v > 0)
     value += (total/count)*evalScores.vals[5]
 
     count = 0
     total = 0
     for director in film.director:
-        total += evalScores.get_director_score(director)
+        v = evalScores.get_director_score(director)
+        total += v
         count += 1
+        if explain:
+            print_explain("Director", director, v > 0)
     value += (total/count)*evalScores.vals[3]
 
     count = 0
     total = 0
     for writer in film.writer:
-        total += evalScores.get_writer_score(writer)
+        v = evalScores.get_writer_score(writer)
+        total += v
         count += 1
+        if explain:
+            print_explain("Writer", writer, v > 0)
     value += (total/count)*evalScores.vals[4]
 
     value += film.imdb_score * evalScores.vals[6]
+    if explain:
+        print_explain("Score", "imdb", (film.imdb_score * evalScores.vals[6]) > 0)
+
     value += film.meta_score * evalScores.vals[7]
+    if explain:
+        print_explain("Score", "Meta", (film.meta_score * evalScores.vals[7]) > 0)
+
     value += film.tomato_score * evalScores.vals[8]
+    if explain:
+        print_explain("Score", "Tomato", (film.tomato_score * evalScores.vals[8]) > 0)
+
     value += film.tomato_user_score * evalScores.vals[9]
+    if explain:
+        print_explain("Score", "Tom User", (film.tomato_user_score * evalScores.vals[9]) > 0)
+
 
     return value
 

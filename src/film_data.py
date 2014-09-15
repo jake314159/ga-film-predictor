@@ -41,7 +41,7 @@ class Film:
 def create_film_from_imdb( imdb_id ):
     f = Film(imdb_id)
     
-    url = "http://www.omdbapi.com/?tomatoes=true&i=" + imdb_id
+    url = "http://www.omdbapi.com/?tomatoes=true&i=" + imdb_id + "&t="
     data = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "film-predictor"}))
 
     pattern = re.compile("((\"Title\":\"(?P<TITLE>[^\"]*)\"|\"Genre\":\"(?P<GENRE>[^\"]*)\"|\"Director\":\"(?P<DIRECTOR>[^\"]*)\"|\"Writer\":\"(?P<WRITER>[^\"]*)\"|\"Actors\":\"(?P<ACTORS>[^\"]*)\"|\"imdbRating\":\"(?P<IMDB_SCORE>[^\"]*)\"|\"Metascore\":\"(?P<META_SCORE>[^\"]*)\"|\"tomatoMeter\":\"(?P<TOMATO_SCORE>[^\"]*)\"|\"tomatoUserMeter\":\"(?P<TOMATO_USER_SCORE>[^\"]*)\"|\"Response\":\"(?P<RESPONSE>[^\"]*)\"|.))*")

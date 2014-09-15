@@ -27,6 +27,8 @@
 #      Example usage
 #  $ python3 evalScore.evs tt1291150
 #
+#      Example with explanation
+#  $ python3 evalScore.evs tt1291150 explain
 
 import sys
 from film_data import *
@@ -36,7 +38,11 @@ from film_eval import *
 f = create_film_from_imdb(sys.argv[2])
 evalScore = load_eval_scores(sys.argv[1])
 
-score = eval_film(f, evalScore)
+explain = False
+if len(sys.argv)>3 and sys.argv[3] == "explain":
+    explain = True
+
+score = eval_film(f, evalScore, explain)
 
 sys.stdout.write(f.title)
 
