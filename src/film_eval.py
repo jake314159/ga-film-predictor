@@ -147,9 +147,6 @@ class EvalScores:
         return self
 
 def print_explain(type_, thing_, value):
-#    if value == 0:
-#        return
-
     type_ = type_.strip()
     thing_ = thing_.strip()
     sys.stdout.write(type_)
@@ -164,7 +161,7 @@ def print_explain(type_, thing_, value):
     elif value < 0:
         print("BAD")
     else:
-        print("**** %d" % value)
+        print("****")
 
 def eval_film( film, evalScores, explain=False ):
     value = 0.0

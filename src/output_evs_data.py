@@ -36,7 +36,7 @@ for actor in eScore.actor_total.keys():
 actor_list.sort(reverse=True, key=lambda x: x[1])
 
 for g in actor_list:
-    sys.stdout.write(g[0])
+    sys.stdout.write("'%s'"%g[0])
     pad = 30-len(g[0])
     if pad>0:
         for i in range(pad):
@@ -56,7 +56,7 @@ for director in eScore.director_total.keys():
 director_list.sort(reverse=True, key=lambda x: x[1])
 
 for g in director_list:
-    sys.stdout.write(g[0])
+    sys.stdout.write("'%s'"%g[0])
     pad = 30-len(g[0])
     if pad>0:
         for i in range(pad):
@@ -74,7 +74,7 @@ for genre in eScore.genre_total.keys():
 genre_list.sort(reverse=True, key=lambda x: x[1])
 
 for g in genre_list:
-    sys.stdout.write(g[0])
+    sys.stdout.write("'%s'"%g[0])
     pad = 17-len(g[0])
     if pad>0:
         for i in range(pad):
