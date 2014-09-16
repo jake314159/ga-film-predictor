@@ -146,7 +146,10 @@ class EvalScores:
                 self.vals[i] = otherScores.vals[i]
         return self
 
-def print_explain(type_, thing_, good_bad):
+def print_explain(type_, thing_, value):
+#    if value == 0:
+#        return
+
     type_ = type_.strip()
     thing_ = thing_.strip()
     sys.stdout.write(type_)
@@ -156,20 +159,22 @@ def print_explain(type_, thing_, good_bad):
     for i in range(28-len(thing_)):
         sys.stdout.write(" ")
 
-    if good_bad:
+    if value > 0:
         print("GOOD")
-    else:
+    elif value < 0:
         print("BAD")
+    else:
+        print("**** %d" % value)
 
 def eval_film( film, evalScores, explain=False ):
     value = 0.0
 
     i=0
     for genre in film.genre:
-        v = evalScores.get_genre_score( genre )*evalScores.vals[i]
+        v = evalScores.get_genre_score( genre.strip() ) * evalScores.vals[i]
         value += v
         if explain:
-            print_explain("Genre", genre, v > 0)
+            print_explain("Genre "+str(i), genre, v)
 
         if i<2:
             i += 1
@@ -177,27 +182,27 @@ def eval_film( film, evalScores, explain=False ):
     count = 0
     total = 0
     for actor in film.actor:
-        v = evalScores.get_actor_score(actor)
+        v = evalScores.get_actor_score(actor.strip())
         total += v
         count += 1
         if explain:
-            print_explain("Actor", actor, v > 0)
+            print_explain("Actor", actor, v)
     value += (total/count)*evalScores.vals[5]
 
     count = 0
     total = 0
     for director in film.director:
-        v = evalScores.get_director_score(director)
+        v = evalScores.get_director_score(director.strip())
         total += v
         count += 1
         if explain:
-            print_explain("Director", director, v > 0)
+            print_explain("Director", director, v)
     value += (total/count)*evalScores.vals[3]
 
     count = 0
     total = 0
     for writer in film.writer:
-        v = evalScores.get_writer_score(writer)
+        v = evalScores.get_writer_score(writer.strip())
         total += v
         count += 1
         if explain:
@@ -206,19 +211,19 @@ def eval_film( film, evalScores, explain=False ):
 
     value += film.imdb_score * evalScores.vals[6]
     if explain:
-        print_explain("Score", "imdb", (film.imdb_score * evalScores.vals[6]) > 0)
+        print_explain("Score", "imdb", (film.imdb_score * evalScores.vals[6]))
 
     value += film.meta_score * evalScores.vals[7]
     if explain:
-        print_explain("Score", "Meta", (film.meta_score * evalScores.vals[7]) > 0)
+        print_explain("Score", "Meta", (film.meta_score * evalScores.vals[7]))
 
     value += film.tomato_score * evalScores.vals[8]
     if explain:
-        print_explain("Score", "Tomato", (film.tomato_score * evalScores.vals[8]) > 0)
+        print_explain("Score", "Tomato", (film.tomato_score * evalScores.vals[8]))
 
     value += film.tomato_user_score * evalScores.vals[9]
     if explain:
-        print_explain("Score", "Tom User", (film.tomato_user_score * evalScores.vals[9]) > 0)
+        print_explain("Score", "Tom User", (film.tomato_user_score * evalScores.vals[9]))
 
 
     return value
